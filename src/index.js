@@ -8,7 +8,7 @@ import axios from 'axios';
 axios.defaults.baseURL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
 axios.defaults.headers.common['Content-Type'] = 'application/json';
 // Trong cấu hình axios
-axios.defaults.withCredentials = true;
+axios.defaults.withCredentials = false;
 
 // Add request interceptor to include auth token in requests
 axios.interceptors.request.use(
