@@ -29,6 +29,7 @@ import DoctorProfile from './pages/DoctorProfile';
 import Doctors from './pages/Doctors';
 import Services from './pages/Services';
 import Contact from './pages/Contact';
+import About from './pages/About'; // Thêm import trang About
 
 import './App.css';
 
@@ -47,6 +48,7 @@ function App() {
               <Route path="/doctors/:doctorId" element={<DoctorProfile />} />
               <Route path="/services" element={<Services />} />
               <Route path="/contact" element={<Contact />} />
+              <Route path="/about" element={<About />} /> {/* Thêm route cho trang About */}
 
               {/* Protected routes */}
               <Route

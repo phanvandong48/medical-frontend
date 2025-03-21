@@ -306,50 +306,66 @@ button:disabled {
   cursor: not-allowed;
 }
 
+/* Enhanced header buttons styles */
 .login-btn,
 .register-btn,
 .logout-btn {
-  padding: 8px 20px;
-  border-radius: 50px;
+  padding: 9px 22px;
+  border-radius: 6px;
   font-weight: 500;
-  transition: all 0.3s;
+  transition: all 0.25s ease;
   text-decoration: none;
   display: inline-block;
+  font-size: 14px;
+  letter-spacing: 0.3px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
 }
 
 .login-btn {
   color: #4285f4;
-  background: transparent;
-  border: 1px solid #4285f4;
+  background: rgba(66, 133, 244, 0.03);
+  border: 1.5px solid #4285f4;
+  margin-right: 10px;
 }
 
 .register-btn {
   color: white;
   background: #4285f4;
-  border: 1px solid #4285f4;
+  border: 1.5px solid #4285f4;
 }
 
 .logout-btn {
-  background-color: #e74c3c;
   color: white;
-  border: none;
-  padding: 5px 12px;
-  border-radius: 4px;
-  cursor: pointer;
-  transition: background-color 0.3s;
-  border: 1px solid #dc3545;
+  background-color: #e74c3c;
+  border: 1.5px solid #e74c3c;
+  padding: 8px 20px;
 }
 
 .login-btn:hover {
-  background-color: rgba(66, 133, 244, 0.1);
+  background-color: rgba(66, 133, 244, 0.08);
+  transform: translateY(-1px);
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.08);
 }
 
 .register-btn:hover {
   background-color: #3367d6;
+  border-color: #3367d6;
+  transform: translateY(-1px);
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
 }
 
 .logout-btn:hover {
   background-color: #c0392b;
+  border-color: #c0392b;
+  transform: translateY(-1px);
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+}
+
+.login-btn:active,
+.register-btn:active,
+.logout-btn:active {
+  transform: translateY(0);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
 }
 
 .cancel-btn {
@@ -520,11 +536,12 @@ textarea {
   background-color: #fff;
 }
 
+/* Enhanced button styles for login/register */
 .login-container button,
 .register-container button {
   width: 100%;
   padding: 14px;
-  margin-top: 10px;
+  margin-top: 15px;
   background-color: #3498db;
   color: white;
   border: none;
@@ -532,18 +549,24 @@ textarea {
   font-size: 16px;
   font-weight: 600;
   cursor: pointer;
-  transition: background-color 0.3s ease, transform 0.2s ease;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  letter-spacing: 0.5px;
+  box-shadow: 0 4px 15px rgba(52, 152, 219, 0.2);
 }
 
 .login-container button:hover,
 .register-container button:hover {
   background-color: #2980b9;
+  box-shadow: 0 6px 20px rgba(41, 128, 185, 0.3);
   transform: translateY(-2px);
 }
 
 .login-container button:active,
 .register-container button:active {
-  transform: translateY(0);
+  box-shadow: 0 2px 10px rgba(41, 128, 185, 0.2);
+  transform: translateY(1px);
 }
 
 .login-container p,
@@ -562,11 +585,7 @@ textarea {
   transition: color 0.3s;
 }
 
-.login-container a:hover,
-.register-container a:hover {
-  color: #2980b9;
-  text-decoration: underline;
-}
+
 
 /* Custom error message styling for login/register */
 .login-container .error,
@@ -583,6 +602,121 @@ textarea {
   content: "⚠";
   margin-right: 6px;
   font-size: 13px;
+}
+
+/* Enhanced button styles for login/register */
+.login-container button,
+.register-container button {
+  width: 100%;
+  padding: 14px;
+  margin-top: 15px;
+  background-color: #3498db;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  letter-spacing: 0.5px;
+  box-shadow: 0 4px 15px rgba(52, 152, 219, 0.2);
+}
+
+.login-container button:hover,
+.register-container button:hover {
+  background-color: #2980b9;
+  box-shadow: 0 6px 20px rgba(41, 128, 185, 0.3);
+  transform: translateY(-2px);
+}
+
+.login-container button:active,
+.register-container button:active {
+  box-shadow: 0 2px 10px rgba(41, 128, 185, 0.2);
+  transform: translateY(1px);
+}
+
+/* Add ripple effect */
+.login-container button::after,
+.register-container button::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 5px;
+  height: 5px;
+  background: rgba(255, 255, 255, 0.5);
+  opacity: 0;
+  border-radius: 100%;
+  transform: scale(1, 1) translate(-50%);
+  transform-origin: 50% 50%;
+}
+
+.login-container button:focus:not(:active)::after,
+.register-container button:focus:not(:active)::after {
+  animation: ripple 1s ease-out;
+}
+
+@keyframes ripple {
+  0% {
+    transform: scale(0, 0);
+    opacity: 0.5;
+  }
+
+  20% {
+    transform: scale(25, 25);
+    opacity: 0.3;
+  }
+
+  100% {
+    opacity: 0;
+    transform: scale(40, 40);
+  }
+}
+
+/* Alternate style option - Gradient button */
+.login-container button.gradient-style,
+.register-container button.gradient-style {
+  background: linear-gradient(135deg, #3498db, #2980b9);
+  border: none;
+  box-shadow: 0 4px 15px rgba(52, 152, 219, 0.3);
+}
+
+.login-container button.gradient-style:hover,
+.register-container button.gradient-style:hover {
+  background: linear-gradient(135deg, #2980b9, #3498db);
+}
+
+/* Alternate style option - Outline button */
+.login-container button.outline-style,
+.register-container button.outline-style {
+  background-color: transparent;
+  color: #3498db;
+  border: 2px solid #3498db;
+  box-shadow: none;
+}
+
+.login-container button.outline-style:hover,
+.register-container button.outline-style:hover {
+  background-color: #3498db;
+  color: white;
+}
+
+/* Disabled state */
+.login-container button:disabled,
+.register-container button:disabled {
+  background-color: #bdc3c7;
+  box-shadow: none;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.login-container button:disabled:hover,
+.register-container button:disabled:hover {
+  background-color: #bdc3c7;
+  box-shadow: none;
+  transform: none;
 }
 
 .login-container .error-message,
@@ -683,27 +817,48 @@ textarea {
 
 /* Banner */
 .banner {
-  background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('https://www.google.com/url?sa=i&url=https%3A%2F%2Fclinicalpartnerships.asu.edu%2Fpartnerships%2Fbanner-health&psig=AOvVaw1zq4vbgWGF4k4EGBuxEcyZ&ust=1742613740437000&source=images&cd=vfe&opi=89978449&ved=0CBUQjRxqFwoTCMjJwZucmowDFQAAAAAdAAAAABAE');
   background-size: cover;
   background-position: center;
+  background-repeat: no-repeat;
   color: white;
   padding: 100px 0;
   text-align: center;
+  position: relative;
+}
+
+/* Overlay for banner to ensure text readability */
+.banner::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  /* Overlay màu tối */
+  z-index: 1;
 }
 
 .banner-content {
   max-width: 700px;
   margin: 0 auto;
+  position: relative;
+  z-index: 2;
+  /* Đảm bảo nội dung hiển thị trên overlay */
 }
 
 .banner h1 {
   font-size: 2.5rem;
   margin-bottom: 20px;
+  font-weight: 700;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 }
 
 .banner p {
   font-size: 1.2rem;
   margin-bottom: 30px;
+  line-height: 1.6;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
 }
 
 /* Section Styles */
@@ -2153,5 +2308,469 @@ section {
     padding-top: 20px;
     border-left: none;
     border-top: 1px solid #eee;
+  }
+}
+
+/* About Page Styles */
+.about-page {
+  color: #333;
+}
+
+/* About Banner */
+.about-banner {
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  color: white;
+  padding: 120px 0;
+  text-align: center;
+  position: relative;
+}
+
+.about-banner::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 1;
+}
+
+.about-banner .banner-content {
+  position: relative;
+  z-index: 2;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.about-banner h1 {
+  font-size: 3rem;
+  margin-bottom: 20px;
+  font-weight: 700;
+}
+
+.about-banner p {
+  font-size: 1.2rem;
+  margin-bottom: 0;
+}
+
+/* About Sections General */
+.about-section {
+  padding: 80px 0;
+}
+
+.about-section:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.about-section .section-header {
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+.about-section .section-header h2 {
+  font-size: 2.2rem;
+  color: #2c3e50;
+  margin-bottom: 15px;
+}
+
+.divider {
+  height: 3px;
+  width: 80px;
+  background: linear-gradient(to right, #3498db, #2ecc71);
+  margin: 0 auto;
+}
+
+/* History Section */
+.about-content {
+  display: flex;
+  flex-direction: column;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.about-text p {
+  margin-bottom: 20px;
+  line-height: 1.7;
+  font-size: 1.05rem;
+  color: #444;
+}
+
+.timeline {
+  margin-top: 50px;
+  position: relative;
+}
+
+.timeline::before {
+  content: '';
+  position: absolute;
+  height: 100%;
+  width: 3px;
+  background: #e0e0e0;
+  left: 80px;
+  top: 0;
+}
+
+.timeline-item {
+  display: flex;
+  margin-bottom: 40px;
+  position: relative;
+}
+
+.timeline-year {
+  width: 80px;
+  font-weight: bold;
+  font-size: 1.2rem;
+  color: #3498db;
+  padding-right: 30px;
+  text-align: right;
+}
+
+.timeline-content {
+  flex: 1;
+  background: white;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+  margin-left: 30px;
+}
+
+.timeline-content h4 {
+  margin-top: 0;
+  color: #2c3e50;
+  margin-bottom: 10px;
+}
+
+.timeline-content p {
+  margin-bottom: 0;
+  color: #555;
+}
+
+.timeline-item::before {
+  content: '';
+  position: absolute;
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  background: #3498db;
+  left: 74px;
+  top: 5px;
+  z-index: 1;
+}
+
+/* Mission Section */
+.mission-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 50px;
+  align-items: center;
+}
+
+.mission-image img {
+  width: 100%;
+  border-radius: 10px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.mission-box {
+  background: white;
+  border-radius: 8px;
+  padding: 25px;
+  margin-bottom: 25px;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.mission-box:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+}
+
+.mission-box h3 {
+  color: #3498db;
+  margin-top: 0;
+  margin-bottom: 15px;
+  font-size: 1.3rem;
+}
+
+.mission-box p {
+  margin-bottom: 0;
+  line-height: 1.6;
+}
+
+.core-values {
+  padding-left: 20px;
+  margin-bottom: 0;
+}
+
+.core-values li {
+  margin-bottom: 8px;
+  line-height: 1.5;
+}
+
+/* Team Section */
+.team-content {
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.team-intro {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  align-items: center;
+  margin-bottom: 60px;
+}
+
+.team-image img {
+  width: 100%;
+  border-radius: 10px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.team-text p {
+  margin-bottom: 20px;
+  line-height: 1.7;
+}
+
+.leadership h3 {
+  text-align: center;
+  margin-bottom: 30px;
+  color: #2c3e50;
+  font-size: 1.8rem;
+}
+
+.leadership-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 30px;
+}
+
+.leader-card {
+  background: white;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 3px 15px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+}
+
+.leader-card:hover {
+  transform: translateY(-5px);
+}
+
+.leader-image {
+  height: 300px;
+  overflow: hidden;
+}
+
+.leader-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.leader-card:hover .leader-image img {
+  transform: scale(1.05);
+}
+
+.leader-info {
+  padding: 20px;
+}
+
+.leader-info h4 {
+  margin-top: 0;
+  color: #2c3e50;
+  margin-bottom: 5px;
+}
+
+.leader-position {
+  color: #3498db;
+  font-weight: 500;
+  margin-bottom: 15px;
+}
+
+.leader-bio {
+  color: #555;
+  line-height: 1.6;
+  margin-bottom: 0;
+}
+
+/* Facilities Section */
+.facilities-content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 50px;
+  align-items: center;
+  margin-bottom: 60px;
+}
+
+.facilities-text p {
+  line-height: 1.7;
+  margin-bottom: 25px;
+}
+
+.facilities-list {
+  padding-left: 20px;
+}
+
+.facilities-list li {
+  margin-bottom: 10px;
+  line-height: 1.5;
+  position: relative;
+  padding-left: 25px;
+}
+
+.facilities-list li::before {
+  content: '✓';
+  color: #2ecc71;
+  position: absolute;
+  left: 0;
+  font-weight: bold;
+}
+
+.facilities-image img {
+  width: 100%;
+  border-radius: 10px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.facilities-gallery h3 {
+  text-align: center;
+  margin-bottom: 30px;
+  color: #2c3e50;
+}
+
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+}
+
+.gallery-item {
+  background: white;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+}
+
+.gallery-item img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+
+.gallery-item p {
+  padding: 15px;
+  text-align: center;
+  margin: 0;
+  font-weight: 500;
+}
+
+/* Call to Action */
+.about-cta {
+  background-color: #3498db;
+  color: white;
+  padding: 80px 0;
+  text-align: center;
+}
+
+.cta-content {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.cta-content h2 {
+  font-size: 2.2rem;
+  margin-bottom: 20px;
+}
+
+.cta-content p {
+  font-size: 1.2rem;
+  margin-bottom: 30px;
+  opacity: 0.9;
+}
+
+.cta-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+.cta-buttons .btn-outline {
+  background-color: transparent;
+  color: white;
+  border: 2px solid white;
+}
+
+.cta-buttons .btn-outline:hover {
+  background-color: white;
+  color: #3498db;
+}
+
+/* Responsive Styles for About Page */
+@media (max-width: 992px) {
+
+  .mission-container,
+  .team-intro,
+  .facilities-content {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+
+  .mission-image {
+    order: 1;
+  }
+
+  .mission-content {
+    order: 2;
+  }
+
+  .about-banner {
+    padding: 100px 0;
+  }
+
+  .about-banner h1 {
+    font-size: 2.5rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .about-section {
+    padding: 60px 0;
+  }
+
+  .timeline::before {
+    left: 30px;
+  }
+
+  .timeline-year {
+    width: 30px;
+    font-size: 1rem;
+    padding-right: 20px;
+  }
+
+  .timeline-content {
+    margin-left: 20px;
+  }
+
+  .timeline-item::before {
+    left: 24px;
+  }
+
+  .leadership-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .cta-buttons {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .cta-buttons .btn {
+    width: 100%;
+    max-width: 300px;
   }
 }

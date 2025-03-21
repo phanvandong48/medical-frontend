@@ -37,7 +37,7 @@ const Home = () => {
     return (
         <div className="home-page">
             {/* Banner Section */}
-            <section className="banner">
+            <section className="banner" style={{ backgroundImage: `url(${bannerImg})` }}>
                 <div className="container">
                     <div className="banner-content">
                         <h1>Chăm sóc sức khỏe chất lượng cao</h1>
