@@ -4,7 +4,8 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { AuthProvider } from './context/AuthContext';
 
 // Components
-import Navbar from './components/Navbar';
+import Header from './components/Header';
+import Footer from './components/Footer';
 import PrivateRoute from './components/PrivateRoute';
 import DoctorRoute from './components/DoctorRoute';
 import AdminRoute from './components/AdminRoute';
@@ -25,6 +26,9 @@ import AddMedicalRecordDetail from './pages/AddMedicalRecordDetail';
 import NotFound from './pages/NotFound';
 import AdminDashboard from './pages/AdminDashboard';
 import DoctorProfile from './pages/DoctorProfile';
+import Doctors from './pages/Doctors';
+import Services from './pages/Services';
+import Contact from './pages/Contact';
 
 import './App.css';
 
@@ -32,14 +36,17 @@ function App() {
   return (
     <AuthProvider>
       <BrowserRouter>
-        <div className="app">
-          <Navbar />
-          <div className="container">
+        <div className="app-container">
+          <Header />
+          <main className="main-content">
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/login" element={<Login />} />
               <Route path="/register" element={<Register />} />
+              <Route path="/doctors" element={<Doctors />} />
               <Route path="/doctors/:doctorId" element={<DoctorProfile />} />
+              <Route path="/services" element={<Services />} />
+              <Route path="/contact" element={<Contact />} />
 
               {/* Protected routes */}
               <Route
@@ -131,7 +138,8 @@ function App() {
 
               <Route path="*" element={<NotFound />} />
             </Routes>
-          </div>
+          </main>
+          <Footer />
         </div>
       </BrowserRouter>
     </AuthProvider>
