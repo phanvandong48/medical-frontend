@@ -3,6 +3,8 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import doctorPlaceholder from '../assets/doctor-placeholder.jpg';
+import bannerImg from '../assets/banner.jpg';
+
 
 const Home = () => {
     const [doctors, setDoctors] = useState([]);

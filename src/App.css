@@ -1793,7 +1793,7 @@ button:disabled {
 
 /* Banner styles for Home page */
 .banner {
-  background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('../assets/banner.jpg');
+  background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('https://www.google.com/url?sa=i&url=https%3A%2F%2Fclinicalpartnerships.asu.edu%2Fpartnerships%2Fbanner-health&psig=AOvVaw1zq4vbgWGF4k4EGBuxEcyZ&ust=1742613740437000&source=images&cd=vfe&opi=89978449&ved=0CBUQjRxqFwoTCMjJwZucmowDFQAAAAAdAAAAABAE');
   background-size: cover;
   background-position: center;
   color: white;
