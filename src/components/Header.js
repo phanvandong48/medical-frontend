@@ -1,16 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import { NavLink, useNavigate } from 'react-router-dom';
-import { useAuth } from '../context/AuthContext';
+import { NavLink, Link } from 'react-router-dom';
 import logo from '../assets/logo.png';
 import '../App.css';
 
 const Header = () => {
-    const { currentUser, logout } = useAuth();
-    const navigate = useNavigate();
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [isScrolled, setIsScrolled] = useState(false);
+    // Giả định người dùng chưa đăng nhập
+    const isLoggedIn = false;
 
-    // Theo dõi cuộn trang để thay đổi kiểu dáng header
     useEffect(() => {
         const handleScroll = () => {
             if (window.scrollY > 50) {
@@ -23,15 +21,6 @@ const Header = () => {
         window.addEventListener('scroll', handleScroll);
         return () => window.removeEventListener('scroll', handleScroll);
     }, []);
-
-    const handleLogout = async () => {
-        try {
-            await logout();
-            navigate('/login');
-        } catch (error) {
-            console.error('Lỗi khi đăng xuất:', error);
-        }
-    };
 
     const toggleMenu = () => {
         setIsMenuOpen(!isMenuOpen);
@@ -60,7 +49,6 @@ const Header = () => {
                         </div>
                     </div>
 
-                    {/* Menu Navigation */}
                     <nav className={`navigation ${isMenuOpen ? 'open' : ''}`}>
                         <ul>
                             <li>
@@ -78,7 +66,7 @@ const Header = () => {
                             <li>
                                 <NavLink to="/contact" onClick={closeMenu}>Liên hệ</NavLink>
                             </li>
-                            {currentUser ? (
+                            {isLoggedIn ? (
                                 <>
                                     <li>
                                         <NavLink to="/appointments" onClick={closeMenu}>Lịch hẹn</NavLink>
@@ -87,7 +75,7 @@ const Header = () => {
                                         <NavLink to="/profile" onClick={closeMenu}>Hồ sơ</NavLink>
                                     </li>
                                     <li>
-                                        <button className="logout-btn" onClick={handleLogout}>Đăng xuất</button>
+                                        <button className="logout-btn">Đăng xuất</button>
                                     </li>
                                 </>
                             ) : (
@@ -108,4 +96,4 @@ const Header = () => {
     );
 };
 
-export default Header; 
+export default Header;
