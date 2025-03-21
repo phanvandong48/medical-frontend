@@ -19,7 +19,7 @@ const DoctorDashboard = () => {
     const fetchAppointments = async () => {
         try {
             setLoading(true);
-            const res = await axios.get('http://localhost:5000/api/appointments/doctor-appointments');
+            const res = await axios.get('/api/appointments/doctor-appointments');
             setAppointments(res.data);
             setLoading(false);
         } catch (error) {
@@ -31,7 +31,7 @@ const DoctorDashboard = () => {
 
     const handleUpdateStatus = async (id, status) => {
         try {
-            await axios.put(`http://localhost:5000/api/appointments/${id}/status`, { status });
+            await axios.put(`/api/appointments/${id}/status`, { status });
 
             // Hiển thị thông báo
             let message = '';

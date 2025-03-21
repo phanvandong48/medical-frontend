@@ -52,7 +52,7 @@ const DoctorSchedule = () => {
 
     const handleSubmit = async (values, { setSubmitting, resetForm }) => {
         try {
-            await axios.post('http://localhost:5000/api/doctors/schedules', values);
+            await axios.post('/api/doctors/schedules', values);
             alert('Tạo lịch khám thành công!');
             resetForm();
             fetchSchedules();

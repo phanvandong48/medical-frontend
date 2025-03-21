@@ -22,7 +22,7 @@ const BookAppointment = () => {
     const fetchDoctors = async () => {
         try {
             setLoading(true);
-            const res = await axios.get('http://localhost:5000/api/doctors');
+            const res = await axios.get('/api/doctors');
             setDoctors(res.data);
             setLoading(false);
         } catch (error) {
@@ -40,7 +40,7 @@ const BookAppointment = () => {
 
         try {
             setLoading(true);
-            const res = await axios.get(`http://localhost:5000/api/doctors/${doctorId}/schedules`);
+            const res = await axios.get(`/api/doctors/${doctorId}/schedules`);
             setSchedules(res.data);
             setLoading(false);
         } catch (error) {
@@ -64,7 +64,7 @@ const BookAppointment = () => {
 
     const handleSubmit = async (values, { setSubmitting, resetForm }) => {
         try {
-            await axios.post('http://localhost:5000/api/appointments', {
+            await axios.post('/api/appointments', {
                 scheduleId: values.scheduleId,
                 reason: values.reason
             });
