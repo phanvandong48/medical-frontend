@@ -446,34 +446,169 @@ textarea {
   color: #e53935;
 }
 
-/* Login and Register */
+/* Login and Register styles - enhanced version */
 .login-container,
 .register-container {
-  max-width: 500px;
-  margin: 40px auto;
+  max-width: 450px;
+  margin: 60px auto;
   background-color: white;
-  padding: 30px;
-  border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  padding: 35px 40px;
+  border-radius: 12px;
+  box-shadow: 0 5px 30px rgba(0, 0, 0, 0.08);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.login-container:hover,
+.register-container:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 35px rgba(0, 0, 0, 0.12);
+}
+
+.login-container::before,
+.register-container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 6px;
+  background: linear-gradient(90deg, #3498db, #2ecc71);
 }
 
 .login-container h2,
 .register-container h2 {
-  margin-bottom: 20px;
+  margin-bottom: 25px;
   text-align: center;
   color: #2c3e50;
+  font-size: 28px;
+  font-weight: 600;
+}
+
+.login-container .form-group,
+.register-container .form-group {
+  margin-bottom: 25px;
+  position: relative;
+}
+
+.login-container label,
+.register-container label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 500;
+  font-size: 15px;
+  color: #444;
+}
+
+.login-container input,
+.register-container input {
+  width: 100%;
+  padding: 13px 15px;
+  border: 1px solid #e1e1e1;
+  border-radius: 8px;
+  font-size: 16px;
+  transition: all 0.3s ease;
+  background-color: #f8f9fa;
+}
+
+.login-container input:focus,
+.register-container input:focus {
+  outline: none;
+  border-color: #3498db;
+  box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
+  background-color: #fff;
+}
+
+.login-container button,
+.register-container button {
+  width: 100%;
+  padding: 14px;
+  margin-top: 10px;
+  background-color: #3498db;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.login-container button:hover,
+.register-container button:hover {
+  background-color: #2980b9;
+  transform: translateY(-2px);
+}
+
+.login-container button:active,
+.register-container button:active {
+  transform: translateY(0);
 }
 
 .login-container p,
 .register-container p {
   text-align: center;
-  margin-top: 20px;
+  margin-top: 25px;
+  color: #7f8c8d;
+  font-size: 15px;
 }
 
 .login-container a,
 .register-container a {
   color: #3498db;
   text-decoration: none;
+  font-weight: 500;
+  transition: color 0.3s;
+}
+
+.login-container a:hover,
+.register-container a:hover {
+  color: #2980b9;
+  text-decoration: underline;
+}
+
+/* Custom error message styling for login/register */
+.login-container .error,
+.register-container .error {
+  color: #e74c3c;
+  font-size: 14px;
+  margin-top: 6px;
+  display: flex;
+  align-items: center;
+}
+
+.login-container .error::before,
+.register-container .error::before {
+  content: "⚠";
+  margin-right: 6px;
+  font-size: 13px;
+}
+
+.login-container .error-message,
+.register-container .error-message {
+  background-color: #fdecea;
+  color: #e74c3c;
+  padding: 14px;
+  border-radius: 8px;
+  margin-bottom: 25px;
+  font-size: 15px;
+  border-left: 4px solid #e74c3c;
+}
+
+/* Responsive adjustments */
+@media (max-width: 576px) {
+
+  .login-container,
+  .register-container {
+    padding: 25px 20px;
+    margin: 30px 15px;
+  }
+
+  .login-container h2,
+  .register-container h2 {
+    font-size: 24px;
+  }
 }
 
 /* Loading */
