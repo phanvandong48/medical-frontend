@@ -7,6 +7,10 @@ import facilityImage from '../assets/facility.jpg'; // Thêm ảnh cơ sở vậ
 import leader1 from '../assets/leader1.jpg'; // Ảnh leader 1
 import leader2 from '../assets/leader2.jpg'; // Ảnh leader 2
 import leader3 from '../assets/leader3.jpg'; // Ảnh leader 3
+import facility1 from '../assets/facility1.jpg';
+import facility2 from '../assets/facility2.jpg';
+import facility3 from '../assets/facility3.jpg';
+import facility4 from '../assets/facility4.jpg';
 
 const About = () => {
     return (
@@ -234,19 +238,19 @@ const About = () => {
                         <h3>Hình ảnh các cơ sở</h3>
                         <div className="gallery-grid">
                             <div className="gallery-item">
-                                <img src="/images/facility1.jpg" alt="Phòng khám" />
+                                <img src={facility1} alt="Phòng khám" />
                                 <p>Phòng khám hiện đại</p>
                             </div>
                             <div className="gallery-item">
-                                <img src="/images/facility2.jpg" alt="Phòng mổ" />
+                                <img src={facility2} alt="Phòng mổ" />
                                 <p>Phòng phẫu thuật tiên tiến</p>
                             </div>
                             <div className="gallery-item">
-                                <img src="/images/facility3.jpg" alt="Phòng xét nghiệm" />
+                                <img src={facility3} alt="Phòng xét nghiệm" />
                                 <p>Phòng xét nghiệm tự động</p>
                             </div>
                             <div className="gallery-item">
-                                <img src="/images/facility4.jpg" alt="Khu vực chờ" />
+                                <img src={facility4} alt="Khu vực chờ" />
                                 <p>Khu vực chờ thoải mái</p>
                             </div>
                         </div>

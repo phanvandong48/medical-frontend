@@ -145,12 +145,9 @@ const Home = () => {
 
                     <div className="testimonials-slider">
                         <div className="testimonial-card">
-                            <div className="testimonial-content">
-                                <p>"Tôi rất hài lòng với dịch vụ tại phòng khám. Bác sĩ chuyên nghiệp và tận tâm,
-                                    thủ tục đơn giản và nhanh chóng."</p>
-                            </div>
+
                             <div className="testimonial-author">
-                                <h4>Nguyễn Văn A</h4>
+                                <h4>Nguyễn Minh Quân</h4>
                                 <p>Bệnh nhân</p>
                             </div>
                         </div>
@@ -161,7 +158,7 @@ const Home = () => {
                                     Bác sĩ tư vấn rất chi tiết và dễ hiểu."</p>
                             </div>
                             <div className="testimonial-author">
-                                <h4>Trần Thị B</h4>
+                                <h4>Trần Thị Hương</h4>
                                 <p>Bệnh nhân</p>
                             </div>
                         </div>
@@ -172,8 +169,12 @@ const Home = () => {
                                     Tôi sẽ giới thiệu cho bạn bè và người thân."</p>
                             </div>
                             <div className="testimonial-author">
-                                <h4>Lê Văn C</h4>
+                                <h4>Lê Thành Đạt</h4>
                                 <p>Bệnh nhân</p>
+                            </div>
+                            <div className="testimonial-content">
+                                <p>"Tôi rất hài lòng với dịch vụ tại phòng khám. Bác sĩ chuyên nghiệp và tận tâm,
+                                    thủ tục đơn giản và nhanh chóng."</p>
                             </div>
                         </div>
                     </div>

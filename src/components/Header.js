@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { NavLink, Link } from 'react-router-dom';
+import { NavLink, Link, useNavigate } from 'react-router-dom';
 import logo from '../assets/logo.png';
 import '../App.css';
 
@@ -8,6 +8,7 @@ const Header = () => {
     const [isScrolled, setIsScrolled] = useState(false);
     // Giả định người dùng chưa đăng nhập
     const isLoggedIn = false;
+    const navigate = useNavigate();
 
     useEffect(() => {
         const handleScroll = () => {
@@ -30,14 +31,22 @@ const Header = () => {
         setIsMenuOpen(false);
     };
 
+    // Hàm xử lý khi click vào NavLink
+    const handleNavigation = (path) => {
+        navigate(path);
+        window.scrollTo(0, 0);
+        closeMenu(); // Đóng menu mobile sau khi điều hướng
+    };
+
     return (
         <header className={`header ${isScrolled ? 'scrolled' : ''}`}>
             <div className="container">
                 <div className="header-wrapper">
                     <div className="logo">
-                        <NavLink to="/" onClick={closeMenu}>
+                        {/* Xử lý riêng cho logo */}
+                        <a onClick={() => handleNavigation('/')} style={{ cursor: 'pointer' }}>
                             <img src={logo} alt="Medical Appointment" />
-                        </NavLink>
+                        </a>
                     </div>
 
                     {/* Hamburger Menu Button */}
@@ -52,27 +61,69 @@ const Header = () => {
                     <nav className={`navigation ${isMenuOpen ? 'open' : ''}`}>
                         <ul>
                             <li>
-                                <NavLink to="/" onClick={closeMenu}>Trang chủ</NavLink>
+                                <a
+                                    onClick={() => handleNavigation('/')}
+                                    className={window.location.pathname === '/' ? 'active' : ''}
+                                    style={{ cursor: 'pointer' }}
+                                >
+                                    Trang chủ
+                                </a>
                             </li>
                             <li>
-                                <NavLink to="/services" onClick={closeMenu}>Dịch vụ</NavLink>
+                                <a
+                                    onClick={() => handleNavigation('/services')}
+                                    className={window.location.pathname === '/services' ? 'active' : ''}
+                                    style={{ cursor: 'pointer' }}
+                                >
+                                    Dịch vụ
+                                </a>
                             </li>
                             <li>
-                                <NavLink to="/doctors" onClick={closeMenu}>Bác sĩ</NavLink>
+                                <a
+                                    onClick={() => handleNavigation('/doctors')}
+                                    className={window.location.pathname === '/doctors' ? 'active' : ''}
+                                    style={{ cursor: 'pointer' }}
+                                >
+                                    Bác sĩ
+                                </a>
                             </li>
                             <li>
-                                <NavLink to="/about" onClick={closeMenu}>Giới thiệu</NavLink>
+                                <a
+                                    onClick={() => handleNavigation('/about')}
+                                    className={window.location.pathname === '/about' ? 'active' : ''}
+                                    style={{ cursor: 'pointer' }}
+                                >
+                                    Giới thiệu
+                                </a>
                             </li>
                             <li>
-                                <NavLink to="/contact" onClick={closeMenu}>Liên hệ</NavLink>
+                                <a
+                                    onClick={() => handleNavigation('/contact')}
+                                    className={window.location.pathname === '/contact' ? 'active' : ''}
+                                    style={{ cursor: 'pointer' }}
+                                >
+                                    Liên hệ
+                                </a>
                             </li>
                             {isLoggedIn ? (
                                 <>
                                     <li>
-                                        <NavLink to="/appointments" onClick={closeMenu}>Lịch hẹn</NavLink>
+                                        <a
+                                            onClick={() => handleNavigation('/appointments')}
+                                            className={window.location.pathname === '/appointments' ? 'active' : ''}
+                                            style={{ cursor: 'pointer' }}
+                                        >
+                                            Lịch hẹn
+                                        </a>
                                     </li>
                                     <li>
-                                        <NavLink to="/profile" onClick={closeMenu}>Hồ sơ</NavLink>
+                                        <a
+                                            onClick={() => handleNavigation('/profile')}
+                                            className={window.location.pathname === '/profile' ? 'active' : ''}
+                                            style={{ cursor: 'pointer' }}
+                                        >
+                                            Hồ sơ
+                                        </a>
                                     </li>
                                     <li>
                                         <button className="logout-btn">Đăng xuất</button>
@@ -81,10 +132,22 @@ const Header = () => {
                             ) : (
                                 <>
                                     <li>
-                                        <NavLink to="/login" onClick={closeMenu} className="login-btn">Đăng nhập</NavLink>
+                                        <a
+                                            onClick={() => handleNavigation('/login')}
+                                            className="login-btn"
+                                            style={{ cursor: 'pointer' }}
+                                        >
+                                            Đăng nhập
+                                        </a>
                                     </li>
                                     <li>
-                                        <NavLink to="/register" onClick={closeMenu} className="register-btn">Đăng ký</NavLink>
+                                        <a
+                                            onClick={() => handleNavigation('/register')}
+                                            className="register-btn"
+                                            style={{ cursor: 'pointer' }}
+                                        >
+                                            Đăng ký
+                                        </a>
                                     </li>
                                 </>
                             )}

@@ -1,9 +1,20 @@
 // src/components/Footer.js
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import logo from '../assets/logo.png';
+import { FaFacebook, FaTwitter, FaInstagram, FaLinkedin } from 'react-icons/fa';
 
 const Footer = () => {
+    const navigate = useNavigate();
+
+    // Hàm xử lý khi click vào link
+    const handleNavigation = (path) => {
+        // Điều hướng đến trang được chỉ định
+        navigate(path);
+        // Cuộn lên đầu trang
+        window.scrollTo(0, 0);
+    };
+
     return (
         <footer className="main-footer">
             <div className="container">
@@ -18,13 +29,16 @@ const Footer = () => {
                         </p>
                         <div className="social-links">
                             <a href="https://facebook.com" target="_blank" rel="noopener noreferrer">
-                                <i className="fa fa-facebook"></i>
+                                📘
                             </a>
                             <a href="https://twitter.com" target="_blank" rel="noopener noreferrer">
-                                <i className="fa fa-twitter"></i>
+                                🐦
                             </a>
                             <a href="https://instagram.com" target="_blank" rel="noopener noreferrer">
-                                <i className="fa fa-instagram"></i>
+                                📷
+                            </a>
+                            <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer">
+                                <FaLinkedin />
                             </a>
                         </div>
                     </div>
@@ -32,11 +46,12 @@ const Footer = () => {
                     <div className="footer-section links">
                         <h3>Liên kết nhanh</h3>
                         <ul>
-                            <li><Link to="/">Trang chủ</Link></li>
-                            <li><Link to="/services">Dịch vụ</Link></li>
-                            <li><Link to="/doctors">Đội ngũ bác sĩ</Link></li>
-                            <li><Link to="/book-appointment">Đặt lịch khám</Link></li>
-                            <li><Link to="/contact">Liên hệ</Link></li>
+                            <li><a onClick={() => handleNavigation('/')}>Trang chủ</a></li>
+                            <li><a onClick={() => handleNavigation('/services')}>Dịch vụ</a></li>
+                            <li><a onClick={() => handleNavigation('/doctors')}>Đội ngũ bác sĩ</a></li>
+                            <li><a onClick={() => handleNavigation('/book-appointment')}>Đặt lịch khám</a></li>
+                            <li><a onClick={() => handleNavigation('/contact')}>Liên hệ</a></li>
+                            <li><a onClick={() => handleNavigation('/about')}>Giới thiệu</a></li>
                         </ul>
                     </div>
 
