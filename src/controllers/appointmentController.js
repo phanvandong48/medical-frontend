@@ -1,34 +1,34 @@
+import axios from 'axios';
+
 // Lấy danh sách cuộc hẹn của bệnh nhân
-exports.getMyAppointments = async (req, res) => {
+export const getMyAppointments = async () => {
     try {
-        const patientId = req.user.id;
-
-        const appointments = await Appointment.findAll({
-            where: { patientId },
-            include: [
-                {
-                    model: Schedule,
-                    include: [{
-                        model: Doctor,
-                        include: [{
-                            model: User,
-                            attributes: ['fullName', 'email', 'phoneNumber']
-                        }]
-                    }]
-                },
-                {
-                    model: DoctorRating,
-                    attributes: ['id', 'rating', 'comment']
-                }
-            ],
-            order: [['createdAt', 'DESC']]
-        });
-
-        res.status(200).json(appointments);
+        const response = await axios.get('/api/appointments/my-appointments');
+        return response.data;
     } catch (error) {
-        res.status(400).json({
-            success: false,
-            message: error.message
-        });
+        console.error('Error fetching appointments:', error);
+        throw error;
+    }
+};
+
+// Tạo cuộc hẹn mới
+export const createAppointment = async (appointmentData) => {
+    try {
+        const response = await axios.post('/api/appointments', appointmentData);
+        return response.data;
+    } catch (error) {
+        console.error('Error creating appointment:', error);
+        throw error;
+    }
+};
+
+// Hủy cuộc hẹn
+export const cancelAppointment = async (appointmentId) => {
+    try {
+        const response = await axios.put(`/api/appointments/${appointmentId}/cancel`);
+        return response.data;
+    } catch (error) {
+        console.error('Error cancelling appointment:', error);
+        throw error;
     }
 }; 

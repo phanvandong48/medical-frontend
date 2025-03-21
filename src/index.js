@@ -4,15 +4,21 @@ import './index.css';
 import App from './App';
 import axios from 'axios';
 
-// Thiết lập URL cơ sở cho tất cả các yêu cầu axios
+// Set up axios
 axios.defaults.baseURL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
-console.log("API URL:", axios.defaults.baseURL);
+axios.defaults.headers.common['Content-Type'] = 'application/json';
 
-// Kiểm tra token từ localStorage và thiết lập trong header nếu tồn tại
-const token = localStorage.getItem('token');
-if (token) {
-  axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
-}
+// Add request interceptor to include auth token in requests
+axios.interceptors.request.use(
+  config => {
+    const token = localStorage.getItem('token');
+    if (token) {
+      config.headers['Authorization'] = `Bearer ${token}`;
+    }
+    return config;
+  },
+  error => Promise.reject(error)
+);
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
