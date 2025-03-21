@@ -1,76 +1,111 @@
-// src/components/Header.js
-import React, { useContext } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { AuthContext } from '../context/AuthContext';
+import React, { useState, useEffect } from 'react';
+import { NavLink, useNavigate } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
 import logo from '../assets/logo.png';
+import '../App.css';
 
 const Header = () => {
-    const { currentUser, logout } = useContext(AuthContext);
+    const { currentUser, logout } = useAuth();
     const navigate = useNavigate();
+    const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const [isScrolled, setIsScrolled] = useState(false);
 
-    const handleLogout = () => {
-        logout();
-        navigate('/');
+    // Theo dõi cuộn trang để thay đổi kiểu dáng header
+    useEffect(() => {
+        const handleScroll = () => {
+            if (window.scrollY > 50) {
+                setIsScrolled(true);
+            } else {
+                setIsScrolled(false);
+            }
+        };
+
+        window.addEventListener('scroll', handleScroll);
+        return () => window.removeEventListener('scroll', handleScroll);
+    }, []);
+
+    const handleLogout = async () => {
+        try {
+            await logout();
+            navigate('/login');
+        } catch (error) {
+            console.error('Lỗi khi đăng xuất:', error);
+        }
+    };
+
+    const toggleMenu = () => {
+        setIsMenuOpen(!isMenuOpen);
+    };
+
+    const closeMenu = () => {
+        setIsMenuOpen(false);
     };
 
     return (
-        <header className="main-header">
+        <header className={`header ${isScrolled ? 'scrolled' : ''}`}>
             <div className="container">
-                <div className="logo-container">
-                    <Link to="/">
-                        <img src={logo} alt="Medical Clinic Logo" className="logo" />
-                    </Link>
-                </div>
+                <div className="header-wrapper">
+                    <div className="logo">
+                        <NavLink to="/" onClick={closeMenu}>
+                            <img src={logo} alt="Medical Appointment" />
+                        </NavLink>
+                    </div>
 
-                <nav className="main-nav">
-                    <ul>
-                        <li><Link to="/">Trang chủ</Link></li>
-                        <li><Link to="/services">Dịch vụ</Link></li>
-                        <li><Link to="/doctors">Đội ngũ bác sĩ</Link></li>
-                        <li><Link to="/contact">Liên hệ</Link></li>
-                    </ul>
-                </nav>
+                    {/* Hamburger Menu Button */}
+                    <div className="hamburger-menu" onClick={toggleMenu}>
+                        <div className={`hamburger-icon ${isMenuOpen ? 'open' : ''}`}>
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </div>
+                    </div>
 
-                <div className="auth-buttons">
-                    {currentUser ? (
-                        <>
-                            <div className="user-menu">
-                                <span className="user-name">Xin chào, {currentUser.fullName}</span>
-                                <div className="dropdown-menu">
-                                    {currentUser.role === 'patient' && (
-                                        <>
-                                            <Link to="/my-appointments">Cuộc hẹn của tôi</Link>
-                                            <Link to="/medical-records">Hồ sơ y tế</Link>
-                                            <Link to="/book-appointment">Đặt lịch khám</Link>
-                                        </>
-                                    )}
-                                    {currentUser.role === 'doctor' && (
-                                        <>
-                                            <Link to="/doctor/dashboard">Bảng điều khiển</Link>
-                                            <Link to="/doctor/schedule">Lịch khám</Link>
-                                            <Link to="/doctor/medical-records">Hồ sơ bệnh nhân</Link>
-                                        </>
-                                    )}
-                                    {currentUser.role === 'admin' && (
-                                        <>
-                                            <Link to="/admin/dashboard">Quản trị viên</Link>
-                                            <Link to="/admin/medical-records">Quản lý hồ sơ</Link>
-                                        </>
-                                    )}
-                                    <button onClick={handleLogout}>Đăng xuất</button>
-                                </div>
-                            </div>
-                        </>
-                    ) : (
-                        <>
-                            <Link to="/login" className="btn btn-outline">Đăng nhập</Link>
-                            <Link to="/register" className="btn btn-primary">Đăng ký</Link>
-                        </>
-                    )}
+                    {/* Menu Navigation */}
+                    <nav className={`navigation ${isMenuOpen ? 'open' : ''}`}>
+                        <ul>
+                            <li>
+                                <NavLink to="/" onClick={closeMenu}>Trang chủ</NavLink>
+                            </li>
+                            <li>
+                                <NavLink to="/services" onClick={closeMenu}>Dịch vụ</NavLink>
+                            </li>
+                            <li>
+                                <NavLink to="/doctors" onClick={closeMenu}>Bác sĩ</NavLink>
+                            </li>
+                            <li>
+                                <NavLink to="/about" onClick={closeMenu}>Giới thiệu</NavLink>
+                            </li>
+                            <li>
+                                <NavLink to="/contact" onClick={closeMenu}>Liên hệ</NavLink>
+                            </li>
+                            {currentUser ? (
+                                <>
+                                    <li>
+                                        <NavLink to="/appointments" onClick={closeMenu}>Lịch hẹn</NavLink>
+                                    </li>
+                                    <li>
+                                        <NavLink to="/profile" onClick={closeMenu}>Hồ sơ</NavLink>
+                                    </li>
+                                    <li>
+                                        <button className="logout-btn" onClick={handleLogout}>Đăng xuất</button>
+                                    </li>
+                                </>
+                            ) : (
+                                <>
+                                    <li>
+                                        <NavLink to="/login" onClick={closeMenu} className="login-btn">Đăng nhập</NavLink>
+                                    </li>
+                                    <li>
+                                        <NavLink to="/register" onClick={closeMenu} className="register-btn">Đăng ký</NavLink>
+                                    </li>
+                                </>
+                            )}
+                        </ul>
+                    </nav>
                 </div>
             </div>
         </header>
     );
 };
 
-export default Header;
+export default Header; 
