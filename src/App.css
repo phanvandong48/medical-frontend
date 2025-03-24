@@ -3343,3 +3343,99 @@ section {
     display: none !important;
   }
 }
+
+/* Khôi phục CSS cho nút đăng nhập/đăng ký trên desktop */
+.auth-buttons {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.login-button,
+.register-button {
+  padding: 8px 16px;
+  border-radius: 4px;
+  font-weight: 500;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.login-button {
+  color: #2a8eff;
+  background-color: transparent;
+  border: 1px solid #2a8eff;
+}
+
+.login-button:hover {
+  background-color: rgba(42, 142, 255, 0.1);
+}
+
+.register-button {
+  color: white;
+  background-color: #2a8eff;
+  border: 1px solid #2a8eff;
+}
+
+.register-button:hover {
+  background-color: #1a7eef;
+}
+
+/* Khôi phục CSS cho nút hamburger */
+.hamburger {
+  display: none;
+  background: none;
+  border: none;
+  font-size: 24px;
+  color: #333;
+  cursor: pointer;
+  padding: 10px;
+  z-index: 2001;
+}
+
+@media screen and (max-width: 768px) {
+  .hamburger {
+    display: block;
+    margin-left: auto;
+  }
+
+  .header-container {
+    justify-content: space-between;
+    padding: 0 15px;
+  }
+
+  .nav-menu,
+  .user-menu {
+    display: none !important;
+  }
+}
+
+/* Khôi phục CSS cho mobile auth buttons */
+.mobile-auth-links {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.mobile-login-btn,
+.mobile-register-btn {
+  display: block;
+  padding: 12px 20px;
+  border-radius: 4px;
+  text-align: center;
+  font-weight: 500;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.mobile-login-btn {
+  color: #2a8eff;
+  background-color: transparent;
+  border: 1px solid #2a8eff;
+}
+
+.mobile-register-btn {
+  color: white;
+  background-color: #2a8eff;
+  border: 1px solid #2a8eff;
+}
