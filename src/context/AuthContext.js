@@ -1,4 +1,4 @@
-import React, { createContext, useState, useEffect } from 'react';
+import React, { createContext, useContext, useState, useEffect } from 'react';
 import axios from 'axios';
 
 export const AuthContext = createContext();
@@ -21,21 +21,16 @@ export const AuthProvider = ({ children }) => {
         try {
             const res = await axios.get('/api/auth/me');
             setCurrentUser(res.data.user);
-            setLoading(false);
         } catch (error) {
             localStorage.removeItem('token');
             delete axios.defaults.headers.common['Authorization'];
-            setLoading(false);
         }
+        setLoading(false);
     };
 
     const login = async (email, password) => {
         try {
-            const res = await axios.post('/api/auth/login', {
-                email,
-                password
-            });
-
+            const res = await axios.post('/api/auth/login', { email, password });
             localStorage.setItem('token', res.data.token);
             axios.defaults.headers.common['Authorization'] = `Bearer ${res.data.token}`;
             setCurrentUser(res.data.user);
@@ -48,7 +43,6 @@ export const AuthProvider = ({ children }) => {
     const register = async (userData) => {
         try {
             const res = await axios.post('/api/auth/register', userData);
-
             localStorage.setItem('token', res.data.token);
             axios.defaults.headers.common['Authorization'] = `Bearer ${res.data.token}`;
             setCurrentUser(res.data.user);
@@ -65,16 +59,11 @@ export const AuthProvider = ({ children }) => {
     };
 
     return (
-        <AuthContext.Provider
-            value={{
-                currentUser,
-                loading,
-                login,
-                register,
-                logout
-            }}
-        >
+        <AuthContext.Provider value={{ currentUser, loading, login, register, logout }}>
             {children}
         </AuthContext.Provider>
     );
 };
+
+// Thêm hàm useAuth để sử dụng trong component khác
+export const useAuth = () => useContext(AuthContext);
