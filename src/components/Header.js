@@ -134,7 +134,11 @@ const Header = () => {
                     </Link>
                 </div>
 
-                <button className="hamburger" onClick={toggleMobileMenu} aria-label="Menu">
+                <button
+                    className={`hamburger ${isMobileMenuOpen ? 'active' : ''}`}
+                    onClick={toggleMobileMenu}
+                    aria-label="Menu"
+                >
                     <FontAwesomeIcon icon={faBars} />
                 </button>
 
@@ -244,18 +248,12 @@ const Header = () => {
                 onClick={toggleMobileMenu}
             ></div>
 
-            {/* Mobile Menu Container */}
+            {/* Mobile Menu Container - điều chỉnh vị trí nút đóng */}
             <div
                 className={`mobile-menu-container ${isMobileMenuOpen ? 'active' : ''}`}
                 ref={mobileMenuRef}
             >
-                <div className="mobile-menu-header">
-                    <span>Menu</span>
-                    <button onClick={toggleMobileMenu} aria-label="Đóng menu">
-                        <FontAwesomeIcon icon={faTimes} />
-                    </button>
-                </div>
-
+                {/* Bắt đầu trực tiếp với content, không có nút đóng */}
                 <div className="mobile-menu-content">
                     {/* Mobile Navigation Links */}
                     <ul className="mobile-nav-links">

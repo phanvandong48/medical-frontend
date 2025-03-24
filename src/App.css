@@ -3157,17 +3157,92 @@ section {
 /* Hamburger menu button */
 .hamburger {
   display: none;
-  background: transparent;
+  background: none;
   border: none;
   font-size: 24px;
   color: #333;
   cursor: pointer;
   padding: 10px;
   z-index: 2001;
-  position: absolute;
-  right: 15px;
-  top: 50%;
-  transform: translateY(-50%);
+  transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.hamburger:hover {
+  color: #2a8eff;
+}
+
+.hamburger.active {
+  transform: rotate(90deg);
+  color: #2a8eff;
+}
+
+/* Cải thiện hiệu ứng chuyển đổi cho menu mobile */
+.mobile-menu-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1999;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+    visibility 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: opacity, visibility;
+}
+
+.mobile-menu-overlay.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.mobile-menu-container {
+  position: fixed;
+  top: 0;
+  right: -100%;
+  width: 80%;
+  max-width: 300px;
+  height: 100vh;
+  background-color: white;
+  z-index: 2000;
+  transition: right 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  overflow-y: auto;
+  box-shadow: -2px 0 10px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  will-change: right;
+}
+
+.mobile-menu-container.active {
+  right: 0;
+}
+
+/* Cải thiện hiệu ứng cho nút đóng menu */
+.mobile-menu-header {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 15px;
+  border-bottom: 1px solid #eee;
+  position: relative;
+}
+
+.mobile-menu-header button {
+  background: none;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+  color: #333;
+  padding: 8px;
+  transition: transform 0.3s ease, color 0.3s ease;
+  position: relative;
+  z-index: 2002;
+}
+
+.mobile-menu-header button:hover {
+  color: #2a8eff;
+  transform: rotate(90deg);
 }
 
 @media screen and (max-width: 768px) {
@@ -3207,7 +3282,9 @@ section {
   z-index: 1999;
   opacity: 0;
   visibility: hidden;
-  transition: opacity 0.3s ease, visibility 0.3s ease;
+  transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+    visibility 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: opacity, visibility;
 }
 
 .mobile-menu-overlay.active {
@@ -3224,24 +3301,26 @@ section {
   height: 100vh;
   background-color: white;
   z-index: 2000;
-  transition: right 0.3s ease;
+  transition: right 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   overflow-y: auto;
   box-shadow: -2px 0 10px rgba(0, 0, 0, 0.1);
   display: flex;
   flex-direction: column;
+  will-change: right;
 }
 
 .mobile-menu-container.active {
   right: 0;
 }
 
-/* Sửa lại header của menu mobile */
+/* Cải thiện hiệu ứng cho nút đóng menu */
 .mobile-menu-header {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
   align-items: center;
   padding: 15px;
   border-bottom: 1px solid #eee;
+  position: relative;
 }
 
 .mobile-menu-header button {
@@ -3250,7 +3329,15 @@ section {
   font-size: 20px;
   cursor: pointer;
   color: #333;
-  padding: 5px;
+  padding: 8px;
+  transition: transform 0.3s ease, color 0.3s ease;
+  position: relative;
+  z-index: 2002;
+}
+
+.mobile-menu-header button:hover {
+  color: #2a8eff;
+  transform: rotate(90deg);
 }
 
 /* Sửa lại nội dung menu mobile */
@@ -3438,4 +3525,151 @@ section {
   color: white;
   background-color: #2a8eff;
   border: 1px solid #2a8eff;
+}
+
+/* Thay đổi hoàn toàn cách hiển thị nút đóng */
+.mobile-menu-header {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 15px;
+  border-bottom: 1px solid #eee;
+}
+
+/* Tạo kiểu mới cho nút đóng */
+.mobile-close-button {
+  position: absolute !important;
+  top: 15px;
+  right: 15px;
+  background: none !important;
+  border: none !important;
+  font-size: 20px !important;
+  cursor: pointer;
+  color: #333 !important;
+  padding: 8px !important;
+  z-index: 2500 !important;
+  /* Z-index rất cao */
+  transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.mobile-close-button:hover {
+  color: #2a8eff !important;
+  transform: rotate(90deg);
+}
+
+/* Đảm bảo menu mobile container có z-index đúng */
+.mobile-menu-container {
+  position: fixed;
+  top: 0;
+  right: -100%;
+  width: 80%;
+  max-width: 300px;
+  height: 100vh;
+  background-color: white;
+  z-index: 2000;
+  transition: right 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  overflow-y: auto;
+  box-shadow: -2px 0 10px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  will-change: right;
+}
+
+.mobile-menu-container.active {
+  right: 0;
+}
+
+/* Đảm bảo nút hamburger không chồng lên nút đóng */
+.hamburger {
+  display: none;
+  background: none;
+  border: none;
+  font-size: 24px;
+  color: #333;
+  cursor: pointer;
+  padding: 10px;
+  z-index: 2001;
+  transition: transform 0.3s ease, color 0.3s ease;
+  position: absolute;
+  right: 15px;
+  top: 15px;
+}
+
+@media screen and (max-width: 768px) {
+  .hamburger {
+    display: block;
+  }
+}
+
+/* Xóa CSS cho nút đóng */
+.mobile-close-button {
+  display: none;
+  /* Ẩn nút đóng */
+}
+
+/* Cập nhật CSS cho menu mobile */
+.mobile-menu-container {
+  position: fixed;
+  top: 0;
+  right: -100%;
+  width: 80%;
+  max-width: 300px;
+  height: 100vh;
+  background-color: white;
+  z-index: 2000;
+  transition: right 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  overflow-y: auto;
+  box-shadow: -2px 0 10px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  padding-top: 20px;
+  /* Thêm padding-top để tạo khoảng cách ở trên cùng */
+}
+
+.mobile-menu-container.active {
+  right: 0;
+}
+
+/* Cập nhật CSS cho nút hamburger */
+.hamburger {
+  display: none;
+  background: none;
+  border: none;
+  font-size: 24px;
+  color: #333;
+  cursor: pointer;
+  padding: 10px;
+  z-index: 2001;
+  transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.hamburger.active {
+  color: #2a8eff;
+}
+
+@media screen and (max-width: 768px) {
+  .hamburger {
+    display: block;
+    margin-left: auto;
+  }
+}
+
+/* Đảm bảo overlay hoạt động đúng */
+.mobile-menu-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1999;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+    visibility 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.mobile-menu-overlay.active {
+  opacity: 1;
+  visibility: visible;
 }
