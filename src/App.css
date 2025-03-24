@@ -70,10 +70,6 @@ img {
   background-color: #ffffff;
   color: #333;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0;
   z-index: 1000;
   transition: transform 0.3s ease;
 }
@@ -88,13 +84,14 @@ img {
 
 /* Thêm container bên trong header để giới hạn chiều rộng và canh giữa nội dung */
 .header-container {
-  width: 100%;
-  max-width: 1200px;
-  padding: 0 20px;
   display: flex;
   align-items: center;
   justify-content: space-between;
   height: 100%;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
 }
 
 /* Điều chỉnh logo container */
@@ -2912,6 +2909,8 @@ section {
   height: 400px;
   overflow: hidden;
   margin-bottom: 40px;
+  z-index: 900;
+  /* Lower than header */
 }
 
 .page-banner .banner-image {
@@ -3153,4 +3152,194 @@ section {
 
 .dropdown-item.logout-item .icon-margin {
   color: #dc3545;
+}
+
+/* Hamburger menu button */
+.hamburger {
+  display: none;
+  background: transparent;
+  border: none;
+  font-size: 24px;
+  color: #333;
+  cursor: pointer;
+  padding: 10px;
+  z-index: 2001;
+  position: absolute;
+  right: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+@media screen and (max-width: 768px) {
+  .app-header {
+    padding: 0;
+  }
+
+  .header-container {
+    position: relative;
+    padding: 0 15px;
+  }
+
+  .hamburger {
+    display: block;
+  }
+
+  .header-container>.nav-menu,
+  .header-container>.user-menu {
+    display: none;
+  }
+
+  /* Đảm bảo logo không bị che khuất */
+  .logo-container {
+    position: relative;
+    z-index: 1000;
+  }
+}
+
+/* Đảm bảo mobile menu hiển thị đúng */
+.mobile-menu-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1999;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.mobile-menu-overlay.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.mobile-menu-container {
+  position: fixed;
+  top: 0;
+  right: -100%;
+  width: 80%;
+  max-width: 300px;
+  height: 100vh;
+  background-color: white;
+  z-index: 2000;
+  transition: right 0.3s ease;
+  overflow-y: auto;
+  box-shadow: -2px 0 10px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+}
+
+.mobile-menu-container.active {
+  right: 0;
+}
+
+/* Sửa lại header của menu mobile */
+.mobile-menu-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px;
+  border-bottom: 1px solid #eee;
+}
+
+.mobile-menu-header button {
+  background: none;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+  color: #333;
+  padding: 5px;
+}
+
+/* Sửa lại nội dung menu mobile */
+.mobile-menu-content {
+  flex: 1;
+  padding: 15px;
+  overflow-y: auto;
+}
+
+/* Sửa lại danh sách liên kết trong menu mobile */
+.mobile-nav-links {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 20px 0;
+}
+
+.mobile-nav-links li {
+  margin-bottom: 5px;
+}
+
+.mobile-nav-links li a {
+  display: block;
+  padding: 10px 0;
+  color: #333;
+  text-decoration: none;
+  border-bottom: 1px solid #eee;
+}
+
+/* Sửa lại phần user trong menu mobile */
+.mobile-user-section {
+  border-top: 1px solid #eee;
+  padding-top: 15px;
+  margin-top: 15px;
+}
+
+.mobile-user-greeting {
+  font-weight: 600;
+  margin-bottom: 15px;
+  color: #2a8eff;
+}
+
+.mobile-menu-link {
+  display: block;
+  padding: 10px 0;
+  color: #333;
+  text-decoration: none;
+  margin-bottom: 5px;
+  border-bottom: 1px solid #eee;
+}
+
+.mobile-section-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: #666;
+  margin: 15px 0 10px;
+}
+
+.mobile-logout-button {
+  width: 100%;
+  text-align: left;
+  background: #f8f9fa;
+  border: 1px solid #ddd;
+  padding: 10px;
+  color: #dc3545;
+  font-size: 14px;
+  cursor: pointer;
+  margin-top: 15px;
+  border-radius: 4px;
+}
+
+/* Ẩn menu desktop trên mobile */
+@media screen and (max-width: 768px) {
+
+  .nav-menu,
+  .user-menu {
+    display: none !important;
+  }
+
+  .hamburger {
+    display: block;
+  }
+}
+
+/* Ẩn menu mobile trên desktop */
+@media screen and (min-width: 769px) {
+
+  .mobile-menu-overlay,
+  .mobile-menu-container,
+  .hamburger {
+    display: none !important;
+  }
 }

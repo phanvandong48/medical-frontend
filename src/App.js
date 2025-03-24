@@ -1,8 +1,9 @@
 // client/src/App.js
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { AuthProvider } from './context/AuthContext';
 import { Helmet, HelmetProvider } from 'react-helmet-async';
+import Hamburger from './components/Hamburger';
 
 // Components
 import Header from './components/Header';
@@ -35,6 +36,8 @@ import About from './pages/About'; // Thêm import trang About
 import './App.css';
 
 function App() {
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
   return (
     <AuthProvider>
       <HelmetProvider>
