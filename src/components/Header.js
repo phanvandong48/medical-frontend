@@ -147,7 +147,6 @@ const Header = () => {
                                 type="button"
                             >
                                 <div className="user-info">
-                                    <span className={getUserIcon()}></span>
                                     <span className="user-name">Xin chào, {displayName}</span>
                                 </div>
                             </button>
