@@ -209,7 +209,7 @@ const Header = () => {
                                         e.stopPropagation();
                                         handleLogout();
                                     }}
-                                    className="dropdown-item"
+                                    className="dropdown-item logout-item"
                                     type="button"
                                 >
                                     <FontAwesomeIcon icon={faSignOutAlt} className="icon-margin" /> Đăng xuất
