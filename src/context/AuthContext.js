@@ -1,7 +1,8 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import axios from 'axios';
-
+axios.defaults.baseURL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
 export const AuthContext = createContext();
+
 
 export const AuthProvider = ({ children }) => {
     const [currentUser, setCurrentUser] = useState(null);
@@ -67,3 +68,4 @@ export const AuthProvider = ({ children }) => {
 
 // Thêm hàm useAuth để sử dụng trong component khác
 export const useAuth = () => useContext(AuthContext);
+
