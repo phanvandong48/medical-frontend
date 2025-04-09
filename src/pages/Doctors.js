@@ -13,7 +13,28 @@ const Doctors = () => {
     const [specialties, setSpecialties] = useState([]);
 
     useEffect(() => {
+        const checkRatingsAndFetch = () => {
+            // Kiểm tra xem có cập nhật đánh giá không
+            const ratingsUpdated = localStorage.getItem('ratingsUpdated');
+            if (ratingsUpdated === 'true') {
+                // Xóa flag
+                localStorage.removeItem('ratingsUpdated');
+                // Tải lại dữ liệu
+                fetchDoctors();
+            }
+        };
+
         fetchDoctors();
+
+        // Kiểm tra cập nhật khi component mount
+        checkRatingsAndFetch();
+
+        // Kiểm tra cập nhật khi component được focus lại
+        window.addEventListener('focus', checkRatingsAndFetch);
+
+        return () => {
+            window.removeEventListener('focus', checkRatingsAndFetch);
+        };
     }, []);
 
     const fetchDoctors = async () => {
@@ -42,9 +63,15 @@ const Doctors = () => {
 
     // Render star ratings
     const renderStars = (rating) => {
-        return Array(5).fill(0).map((_, index) => (
-            <span key={index} className={`star ${index < Math.round(rating) ? 'filled' : ''}`}>★</span>
-        ));
+        const numRating = parseFloat(rating) || 0;
+        return (
+            <div className="rating-display">
+                {Array(5).fill(0).map((_, index) => (
+                    <span key={index} className={`star ${index < Math.round(numRating) ? 'filled' : ''}`}>★</span>
+                ))}
+                <span className="rating-value">({numRating})</span>
+            </div>
+        );
     };
 
     return (
@@ -96,8 +123,8 @@ const Doctors = () => {
                                         <p className="doctor-experience">Kinh nghiệm: {doctor.experience} năm</p>
                                         <div className="doctor-details">
                                             <div className="doctor-rating">
-                                                {renderStars(doctor.averageRating || 0)}
-                                                <span>({doctor.ratingsCount || 0} đánh giá)</span>
+                                                {renderStars(doctor.averageRating)}
+                                                <span className="rating-count">({doctor.ratingsCount || 0} đánh giá)</span>
                                             </div>
                                             <p className="view-profile">Xem hồ sơ chi tiết</p>
                                         </div>

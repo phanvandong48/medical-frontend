@@ -70,37 +70,54 @@ const AddMedicalRecordDetail = () => {
             setLoading(true);
             setError('');
 
+            // Tạo một bản sao của formData để gửi đi
+            const dataToSend = { ...formData };
+
+            // Xử lý appointmentId trước khi gửi
+            if (!dataToSend.appointmentId || dataToSend.appointmentId === '') {
+                delete dataToSend.appointmentId; // Xóa trường này nếu rỗng
+            }
+
             // Gửi thông tin chi tiết bệnh án
-            const detailRes = await axios.post(`/api/medical-records/${recordId}/details`, formData);
+            const detailRes = await axios.post(`/api/medical-records/${recordId}/details`, dataToSend);
             const newDetailId = detailRes.data.data.id;
 
             // Nếu có file được chọn, tải lên file
             if (selectedFile) {
-                const formFileData = new FormData();
-                formFileData.append('file', selectedFile);
+                try {
+                    const formFileData = new FormData();
+                    formFileData.append('file', selectedFile);
 
-                await axios.post(
-                    `/api/medical-records/details/${newDetailId}/files`,
-                    formFileData,
-                    {
-                        headers: {
-                            'Content-Type': 'multipart/form-data'
-                        },
-                        onUploadProgress: (progressEvent) => {
-                            const percentCompleted = Math.round(
-                                (progressEvent.loaded * 100) / progressEvent.total
-                            );
-                            setUploadProgress(percentCompleted);
+                    await axios.post(
+                        `/api/medical-records/details/${newDetailId}/files`,
+                        formFileData,
+                        {
+                            headers: {
+                                'Content-Type': 'multipart/form-data'
+                            },
+                            onUploadProgress: (progressEvent) => {
+                                const percentCompleted = Math.round(
+                                    (progressEvent.loaded * 100) / progressEvent.total
+                                );
+                                setUploadProgress(percentCompleted);
+                            }
                         }
-                    }
-                );
+                    );
+                } catch (fileError) {
+                    // Log lỗi nhưng vẫn tiếp tục
+                    console.error("Lỗi khi tải file:", fileError);
+                    setError("Chi tiết bệnh án đã được tạo nhưng không thể tải lên file đính kèm");
+                    // Vẫn chuyển hướng sau khi lưu chi tiết bệnh án
+                    setTimeout(() => navigate(`/medical-records/${recordId}`), 3000);
+                    return;
+                }
             }
 
             navigate(`/medical-records/${recordId}`);
 
         } catch (error) {
             setError(error.response?.data?.message || 'Không thể thêm chi tiết bệnh án');
-            console.error(error);
+            console.error("Lỗi chi tiết:", error);
         } finally {
             setLoading(false);
         }

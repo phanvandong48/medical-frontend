@@ -101,20 +101,25 @@ const MyAppointments = () => {
         try {
             const response = await axios.post('/api/ratings', {
                 appointmentId: selectedAppointment.id,
-                doctorId: selectedAppointment.Schedule.Doctor.id,
                 rating: values.rating,
                 comment: values.comment
             });
 
-            setRatingSuccess('Đánh giá của bạn đã được gửi thành công!');
+            setRatingSuccess('Cảm ơn bạn đã đánh giá bác sĩ!');
+            setRatingError('');
             resetForm();
+
+            localStorage.setItem('ratingsUpdated', 'true');
+
+            fetchAppointments();
+
             setTimeout(() => {
-                handleCloseRating();
-                fetchAppointments();
+                setShowRatingModal(false);
+                setRatingSuccess('');
             }, 2000);
         } catch (error) {
-            setRatingError(error.response?.data?.message || 'Không thể gửi đánh giá. Vui lòng thử lại sau.');
-            console.error('Rating error:', error);
+            setRatingError(error.response?.data?.message || 'Không thể gửi đánh giá');
+            console.error(error);
         }
     };
 
@@ -156,7 +161,7 @@ const MyAppointments = () => {
                         <div key={appointment.id} className="appointment-card">
                             <div className="appointment-header">
                                 <h3>
-                                    Lịch khám với BS. {appointment.Schedule.Doctor.User.fullName}
+                                    Lịch khám với BS. {appointment?.Schedule?.Doctor?.User?.fullName || 'Không xác định'}
                                 </h3>
                                 <span className={`status ${getStatusClass(appointment.status)}`}>
                                     {getStatusText(appointment.status)}
@@ -165,16 +170,16 @@ const MyAppointments = () => {
 
                             <div className="appointment-details">
                                 <p>
-                                    <strong>Ngày khám:</strong> {format(new Date(appointment.Schedule.date), 'dd/MM/yyyy')}
+                                    <strong>Ngày khám:</strong> {appointment?.Schedule?.date ? format(new Date(appointment.Schedule.date), 'dd/MM/yyyy') : 'N/A'}
                                 </p>
                                 <p>
-                                    <strong>Thời gian:</strong> {appointment.Schedule.startTime} - {appointment.Schedule.endTime}
+                                    <strong>Thời gian:</strong> {appointment?.Schedule?.startTime || 'N/A'} - {appointment?.Schedule?.endTime || 'N/A'}
                                 </p>
                                 <p>
-                                    <strong>Chuyên khoa:</strong> {appointment.Schedule.Doctor.specialization}
+                                    <strong>Chuyên khoa:</strong> {appointment?.Schedule?.Doctor?.specialization || 'N/A'}
                                 </p>
                                 <p>
-                                    <strong>Lý do khám:</strong> {appointment.reason}
+                                    <strong>Lý do khám:</strong> {appointment?.reason || 'N/A'}
                                 </p>
                             </div>
 
@@ -215,7 +220,7 @@ const MyAppointments = () => {
                 <div className="rating-modal-overlay">
                     <div className="rating-modal">
                         <div className="rating-modal-header">
-                            <h3>Đánh giá bác sĩ {selectedAppointment.doctor.User.fullName}</h3>
+                            <h3>Đánh giá bác sĩ {selectedAppointment?.Schedule?.Doctor?.User?.fullName || 'Không xác định'}</h3>
                             <button className="close-modal" onClick={handleCloseRating}>×</button>
                         </div>
 
